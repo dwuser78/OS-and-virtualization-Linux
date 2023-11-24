@@ -1,0 +1,59 @@
+dw@dw-VirtualBox:~$ mkdir ./students ./mentors
+dw@dw-VirtualBox:~$ touch ./students/students_list.txt
+dw@dw-VirtualBox:~$ nano ./students/students_list.txt
+dw@dw-VirtualBox:~$ nano ./mentors/mentors_list.txt
+dw@dw-VirtualBox:~$ mv ./mentors/mentors_list.txt ./students/
+dw@dw-VirtualBox:~$ rm -rf ./mentors
+dw@dw-VirtualBox:~$ mv ./students ./students_and_mentors
+dw@dw-VirtualBox:~$ rm -rf ./students_and_mentors
+
+dw@dw-VirtualBox:~$ echo "abrakadabra" > file1
+dw@dw-VirtualBox:~$ cp file1 file2
+dw@dw-VirtualBox:~$ ln -s file1 file3
+dw@dw-VirtualBox:~$ ln file1 file4
+dw@dw-VirtualBox:~$ ls -lih
+total 48K
+526351 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Desktop
+526376 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Documents
+526352 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Downloads
+524463 -rw-rw-r-- 2 dw dw   12 ноя 24 18:10 file1
+527993 -rw-rw-r-- 1 dw dw   12 ноя 24 18:10 file2
+527994 lrwxrwxrwx 1 dw dw    5 ноя 24 18:13 file3 -> file1
+524463 -rw-rw-r-- 2 dw dw   12 ноя 24 18:10 file4
+526380 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Music
+526381 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Pictures
+526369 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Public
+527312 drwx------ 3 dw dw 4,0K ноя 24 01:29 snap
+526353 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Templates
+526382 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Videos
+dw@dw-VirtualBox:~$ rm file1
+dw@dw-VirtualBox:~$ ls -lih
+total 44K
+526351 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Desktop
+526376 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Documents
+526352 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Downloads
+527993 -rw-rw-r-- 1 dw dw   12 ноя 24 18:10 file2
+527994 lrwxrwxrwx 1 dw dw    5 ноя 24 18:13 file3 -> file1
+524463 -rw-rw-r-- 1 dw dw   12 ноя 24 18:10 file4
+526380 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Music
+526381 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Pictures
+526369 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Public
+527312 drwx------ 3 dw dw 4,0K ноя 24 01:29 snap
+526353 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Templates
+526382 drwxr-xr-x 2 dw dw 4,0K ноя 24 01:29 Videos
+dw@dw-VirtualBox:~$ cat file2
+abrakadabra
+dw@dw-VirtualBox:~$ cat file3
+cat: file3: No such file or directory
+dw@dw-VirtualBox:~$ cat file4
+abrakadabra
+dw@dw-VirtualBox:~$ mv file2 new_file2
+dw@dw-VirtualBox:~$ mv file4 new_file4
+dw@dw-VirtualBox:~$ ln -s new_file2 new_file3
+
+dw@dw-VirtualBox:~$ mv file2 new_file2
+dw@dw-VirtualBox:~$ mv file3 new_file3
+dw@dw-VirtualBox:~$ mv file4 new_file4
+dw@dw-VirtualBox:~$ ln -s new_file2 new_file3
+dw@dw-VirtualBox:~$ mkdir new_dir
+dw@dw-VirtualBox:~$ mv new_file3 new_dir/
