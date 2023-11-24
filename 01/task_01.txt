@@ -1,0 +1,22 @@
+cd /media/dw/VBox_GAs_7.0.12/
+./autorun.sh
+sudo apt update
+sudo apt install mc
+
+Server:
+sudo apt install openssh-server
+Client:
+ssh dw@192.168.1.14
+
+uname -a
+Linux dw-VirtualBox 6.2.0-37-generic #38~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov  2 18:01:13 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+
+cat /proc/version
+Linux version 6.2.0-37-generic (buildd@bos03-amd64-055) (x86_64-linux-gnu-gcc-11 (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #38~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Thu Nov  2 18:01:13 UTC 2
+
+lsb_release -a
+No LSB modules are available.
+Distributor ID: Ubuntu
+Description:    Ubuntu 22.04.3 LTS
+Release:        22.04
+Codename:       jammy
