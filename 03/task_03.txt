@@ -1,0 +1,47 @@
+VirtualBox:~$ sudo useradd testuser -m -s /bin/bash -p test123
+VirtualBox:~$ sudo cat /etc/passwd | grep testuser
+testuser:x:1001:1001::/home/testuser:/bin/bash
+VirtualBox:~$ sudo cat /etc/group | grep testuser
+testuser:x:1001:
+VirtualBox:~$ sudo userdel -r testuser
+
+VirtualBox:~$ sudo useradd testuser -m -s /bin/bash -p test123
+VirtualBox:~$ groups testuser
+testuser : testuser
+VirtualBox:~$ sudo groupadd testgroup
+VirtualBox:~$ sudo usermod -g testgroup testuser
+VirtualBox:~$ groups testuser
+testuser : testgroup
+VirtualBox:~$ sudo usermod -aG testuser testuser
+VirtualBox:~$ groups testuser
+testuser : testgroup testuser
+VirtualBox:~$ sudo usermod -G testgroup testuser
+VirtualBox:~$ groups testuser
+testuser : testgroup
+
+VirtualBox:~$ sudo useradd testuser -m -s /bin/bash -G sudo -p test123
+VirtualBox:~$ sudo -l -U testuser
+Matching Defaults entries for testuser on dw-VirtualBox:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin, use_pty
+User testuser may run the following commands on dw-VirtualBox:
+    (ALL : ALL) ALL
+VirtualBox:~$ sudo groupadd developer
+VirtualBox:~$ sudo useradd devel1 -m -s /bin/bash -G developer -p dev123
+VirtualBox:~$ sudo useradd devel2 -m -s /bin/bash -G developer -p dev456
+VirtualBox:~$ sudo useradd devel3 -m -s /bin/bash -G developer -p dev789
+VirtualBox:~$ sudo mkdir /devel_shared
+VirtualBox:~$ sudo chown root:developer /devel_shared
+VirtualBox:~$ sudo chmod 770 /devel_shared
+VirtualBox:~$ sudo chmod g+s /devel_shared
+VirtualBox:~$ sudo -u devel1 touch /devel_shared/test_file.txt
+VirtualBox:~$ sudo -u devel2 bash -c 'echo "test string" >> /devel_shared/test_file.txt'
+VirtualBox:~$ sudo -u devel3 bash -c 'echo "new test string" >> /devel_shared/test_file.txt'
+VirtualBox:~$ sudo -u devel1 cat /devel_shared/test_file.txt
+test string
+new test string
+VirtualBox:~$ sudo mkdir /devel_shared/files
+VirtualBox:~$ sudo chmod +t /devel_shared/files
+VirtualBox:~$ sudo -u devel1 touch /devel_shared/files/test_file.txt
+VirtualBox:~$ sudo -u devel2 rm /devel_shared/files/test_file.txt
+rm: cannot remove '/devel_shared/files/test_file.txt': Operation not permitted
+VirtualBox:~$ sudo -u devel1 rm /devel_shared/files/test_file.txt
