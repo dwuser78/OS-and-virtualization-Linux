@@ -21,4 +21,4 @@ VirtualBox:~$ snap install solitaire
 VirtualBox:~$ nano /home/dw/test.txt
 VirtualBox:~$ crontab -e
 VirtualBox:~$ crontab -l
-10 * * * * cp /home/dw/test.txt /home/dw/test.txt.bak
+*/10 * * * * cp /home/dw/test.txt /home/dw/test.txt.bak
