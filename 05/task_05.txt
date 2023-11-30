@@ -1,0 +1,41 @@
+VirtualBox:~$ sudo apt update
+VirtualBox:~$ sudo apt install iptables-persistent
+VirtualBox:~$ sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+VirtualBox:~$ sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+VirtualBox:~$ sudo iptables -I INPUT 1 -i lo -j ACCEPT
+VirtualBox:~$ sudo iptables -t nat -A OUTPUT -o lo -p tcp --dport 80 -j REDIRECT --to-port 8080
+VirtualBox:~$ sudo iptables -I INPUT -s 3.4.5.6 -j DROP
+VirtualBox:~$ sudo iptables -A INPUT -j DROP
+VirtualBox:~$ sudo iptables --line-numbers -L -v -n
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination   
+1        0     0 DROP       all  --  *      *       3.4.5.6              0.0.0.0/0
+2        7   529 ACCEPT     all  --  lo     *       0.0.0.0/0            0.0.0.0/0
+3        0     0 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:22
+4        0     0 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+5        8   987 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination         
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination
+
+VirtualBox:~$ sudo iptables --line-numbers -L -v -n -t nat
+Chain PREROUTING (policy ACCEPT 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination
+1        0     0 REDIRECT   tcp  --  *      lo      0.0.0.0/0            0.0.0.0/0            tcp dpt:80 redir ports 8080
+Chain POSTROUTING (policy ACCEPT 0 packets, 0 bytes)
+num   pkts bytes target     prot opt in     out     source               destination
+
+VirtualBox:~$ sudo service netfilter-persistent save
+
+
+VirtualBox:~$ ps -ax | grep mc
+   2865 ?        Sl     0:00 /usr/libexec/ibus-memconf
+  18333 pts/1    S+     0:00 mc
+  18345 pts/0    S+     0:00 grep --color=auto mc
+
+VirtualBox:~$ sudo kill 18333
