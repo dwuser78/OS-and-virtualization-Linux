@@ -1,0 +1,67 @@
+1.
+sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+sudo apt update
+sudo apt install nginx
+2.
+sudo apt install php8.1-fpm php8.1-mysql php8.1-curl php8.1-gd php-mail php8.1-mbstring php8.1-zip php8.1-json
+sudo mkdir /var/www
+sudo chown www-data:www-data /var/www
+sudo cp /usr/share/nginx/html/* /var/www/
+sudo nano /var/www/test.php
+sudo nano /etc/nginx/nginx.conf
+sudo nano /etc/nginx/conf.d/default.conf
+sudo service nginx start
+sudo service nginx status
+3.
+sudo apt install apache2
+sudo rm -rf /var/www/html
+sudo mkdir /var/www_apache
+sudo nano /var/www_apache/index.htm
+sudo cp /var/www/test.php /var/www_apache/
+sudo chown www-data:www-data -R /var/www_apache
+sudo nano /etc/apache2/apache2.conf
+sudo nano /etc/apache2/ports.conf
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+4.
+sudo apt install libapache2-mod-fcgid
+sudo a2enconf php8.1-fpm
+sudo a2enmod proxy
+sudo a2enmod proxy_fcgi
+sudo service apache2 restart 
+sudo service apache2 status
+5.
+sudo nano /etc/nginx/conf.d/default.conf
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+sudo nano /etc/apache2/apache2.conf
+sudo rm -rf /var/www_apache
+sudo service nginx restart
+sudo service nginx status
+sudo service apache2 restart 
+sudo service apache2 status
+6.
+sudo apt install mysql-server
+sudo mysql_secure_installation
+sudo mysql
+mysql> CREATE DATABASE test_db;
+mysql> CREATE TABLE test_db.test_table (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL);
+mysql> exit
+7.
+sudo mysql
+mysql> CREATE USER 'admin'@'localhost' IDENTIFIED BY 'Pass1234';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
+mysql> FLUSH PRIVILEGES;
+mysql> exit
+wget https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.zip
+unzip phpMyAdmin-5.2.1-all-languages.zip
+sudo mv phpMyAdmin-5.2.1-all-languages /var/www/phpmyadmin
+sudo chown www-data:www-data -R /var/www/phpmyadmin
+# Go in the browser to -> http://<VM_IP>/phpmyadmin/setup/index.php
+sudo cp config.inc.php /var/www/phpmyadmin/
+sudo chown www-data:www-data -R /var/www/phpmyadmin/config.inc.php
+sudo rm -rf /var/www/phpmyadmin/setup
+# Go in the browser to -> http://<VM_IP>/phpmyadmin/
